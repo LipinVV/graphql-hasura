@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
 import {useMutation, useQuery} from "@apollo/client";
 import {GET_USERS_QUERY} from "../graphql/queries";
-import {DELETE_USER, UPDATE_USER} from "../graphql/mutations";
-import {Admin} from "../Admin";
+import {DELETE_USER} from "../graphql/mutations";
+import {UserEditor} from "./UserEditor";
 import './users.css';
 
 export const Users = () => {
@@ -20,21 +20,6 @@ export const Users = () => {
         }
     }, [data]);
 
-    const [updateUser] = useMutation(UPDATE_USER);
-    const changeUserHandler = async (id) => {
-        void await updateUser({
-            variables: {
-                id: id,
-                username: 'name2',
-                age: 99,
-                gender: false
-            },
-            refetchQueries: [{query: GET_USERS_QUERY}]
-        })
-        if (error) {
-            console.error(error)
-        }
-    }
 
     const [deleteUser] = useMutation(DELETE_USER);
     const deleteUserHandler = async (id) => {
@@ -68,12 +53,11 @@ export const Users = () => {
                                 <span>name: {user.username}</span>
                                 <span>age: {user.age}</span>
                                 <span>gender: {user.gender ? 'Female' : 'Male'}</span>
-                                <button type='button' onClick={() => changeUserHandler(user.id)}>update</button>
                                 <button type='button' onClick={() => deleteUserHandler(user.id)}>delete</button>
                                 <button type='button' onClick={() => editUser(user.id)}>edit</button>
                             </div>
                             :
-                            <Admin editUser={editUser} id={user.id}/>
+                            <UserEditor editUser={editUser} id={user.id}/>
                         }
                     </div>
                 )
