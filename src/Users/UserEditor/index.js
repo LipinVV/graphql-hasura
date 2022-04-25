@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {useMutation} from "@apollo/client";
 import {GET_USERS_QUERY} from "../../graphql/queries";
 import {UPDATE_USER} from "../../graphql/mutations";
+import './userEditor.css';
 
 export const UserEditor = ({editUser, id}) => {
     const genders = ['Male', 'Female'];
@@ -29,12 +30,25 @@ export const UserEditor = ({editUser, id}) => {
     }
 
     return (
-        <div className='admin'>
-            username<input placeholder='user' type='text' value={userName} onChange={(event) => setUserName(event.target.value)}/>
-            age<input placeholder='18' type='number' value={userAge} onChange={(event) => setUserAge(Number(event.target.value))}/>
+        <div className='user-editor'>
+            username<input
+            className='user-editor__input'
+            placeholder='user'
+            type='text'
+            value={userName}
+            onChange={(event) => setUserName(event.target.value)}
+        />
+            age<input
+            className='user-editor__input'
+            placeholder='18'
+            type='number'
+            value={userAge}
+            onChange={(event) => setUserAge(Number(event.target.value))}
+        />
             {genders.map(gender =>
-                <label key={gender}>
+                <label className='user-editor__label' key={gender}>
                     <input
+                        className='user-editor__input'
                         value={gender}
                         onChange={(event) => setUserGender(event.target.value)}
                         checked={gender === userGender}
@@ -42,13 +56,22 @@ export const UserEditor = ({editUser, id}) => {
                     {gender}
                 </label>
             )}
-            <button type='button' onClick={() => {
-                void changeUserHandler(id);
-                editUser(id);
-            }}>submit</button>
-            <button type='button' onClick={() => {
-                editUser(id);
-            }}>cancel</button>
+            <button
+                disabled={userName === ''}
+                className='user-editor__button'
+                type='button'
+                onClick={() => {
+                    void changeUserHandler(id);
+                    editUser(id);
+                }}>submit
+            </button>
+            <button
+                className='user-editor__button'
+                type='button'
+                onClick={() => {
+                    editUser(id);
+                }}>cancel
+            </button>
         </div>
     )
 }

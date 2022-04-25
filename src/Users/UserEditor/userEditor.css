@@ -1,0 +1,38 @@
+.user-editor {
+    display: grid;
+    width: 100%;
+    max-width: 80%;
+    margin: 0 auto;
+    grid-gap: 10px;
+}
+
+.user-editor__input {
+    padding: 5px;
+    font-size: 18px;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.user-editor__label {
+    display: flex;
+    align-items: center;
+}
+
+.user-editor__button {
+    cursor: pointer;
+    border: none;
+    background-color: skyblue;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    max-height: 50px;
+    border-radius: 12px;
+}
+
+.user-editor__button:disabled {
+    cursor: not-allowed;
+}
+
+.user-editor__button:nth-of-type(2) {
+    background-color: mediumpurple;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import {setContext} from "@apollo/client/link/context";
+import {BrowserRouter} from "react-router-dom";
 import {
     ApolloClient,
     InMemoryCache,
@@ -14,7 +15,7 @@ const httpLink = createHttpLink({
     uri: 'https://nearby-emu-27.hasura.app/v1/graphql',
 });
 
-const authLink = setContext((_, { headers }) => {
+const authLink = setContext((_, {headers}) => {
     const token = 'WmynD3I1siSpHUpXAPQNyrp6Mb71ZHBJ3cydq6PqwAiS9Be3No5lLuiHe0NiYl9j';
     return {
         headers: {
@@ -31,9 +32,11 @@ const client = new ApolloClient({
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-      <ApolloProvider client={client}>
-          <App/>
-      </ApolloProvider>
-  </React.StrictMode>
+    <React.StrictMode>
+        <ApolloProvider client={client}>
+            <BrowserRouter>
+                <App/>
+            </BrowserRouter>
+        </ApolloProvider>
+    </React.StrictMode>
 );

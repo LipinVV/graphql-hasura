@@ -1,12 +1,65 @@
 .users {
     padding: 20px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    min-height: 150px;
     grid-gap: 10px;
+}
+
+.users__header {
+    display: grid;
+    grid-row-start: span 11;
 }
 
 .user {
     display: grid;
-    border: 3px solid coral;
+    border: 3px solid mediumspringgreen;
     padding: 10px;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+}
+
+.user__wrapper {
+    border: 3px solid cornflowerblue;
+    padding: 10px;
+    display: grid;
+    grid-gap: 10px;
+    min-height: 300px;
+}
+
+.user__link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.user__button {
+    cursor: pointer;
+    border: none;
+    background-color: lightskyblue;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    max-height: 50px;
+    border-radius: 12px;
+    min-width: 70%;
+    justify-self: center;
+}
+
+.user__button:nth-of-type(1) {
+    background-color: mediumspringgreen;
+}
+
+.user__buttons-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+}
+
+.user__button_confirm {
+    justify-self: end;
+}
+
+.user__button_cancel {
+    justify-self: start;
 }

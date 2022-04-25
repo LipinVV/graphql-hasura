@@ -9,3 +9,13 @@ export const GET_USERS_QUERY = gql`
             username
         }
     }`;
+
+export const GET_USER = gql`
+    query getUsers($id: Int!) {
+        users_by_pk(id: $id) {
+            age
+            gender
+            id
+            username
+        }
+    }`;

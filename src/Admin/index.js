@@ -18,7 +18,7 @@ export const Admin = ({editUser, id}) => {
             variables: {
                 username: userName,
                 age: userAge,
-                gender: !userGender
+                gender: !!userGender
             },
             refetchQueries: [{query: GET_USERS_QUERY}]
         })
@@ -29,6 +29,7 @@ export const Admin = ({editUser, id}) => {
 
     return (
         <div className='admin'>
+            <h1>Create user</h1>
             username<input placeholder='user' type='text' value={userName} onChange={(event) => setUserName(event.target.value)}/>
             age<input placeholder='18' type='number' value={userAge} onChange={(event) => setUserAge(Number(event.target.value))}/>
             {genders.map(gender =>
@@ -41,7 +42,7 @@ export const Admin = ({editUser, id}) => {
                     {gender}
                 </label>
             )}
-            <button type='button' onClick={() => {
+            <button disabled={userName === ''} type='button' onClick={() => {
                 void insertUserHandler();
                 editUser(id);
             }}>submit</button>
