@@ -13,6 +13,7 @@ export const User = () => {
     });
     const user = data?.users_by_pk;
 
+    if (error) return <div>Something went wrong</div>
     if (loading) return <div>Loading user...</div>
 
     return (
