@@ -1,0 +1,13 @@
+.filters {
+    display: grid;
+    grid-gap: 10px;
+}
+
+.filters__search-label {
+    display: grid;
+    grid-template-rows: 0.5fr 1fr;
+}
+
+.filters__search-input {
+
+}

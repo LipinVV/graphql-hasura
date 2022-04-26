@@ -2,10 +2,11 @@ import React, {useState, useEffect} from "react";
 import {useMutation, useQuery} from "@apollo/client";
 import {UserEditor} from "./UserEditor";
 import {Link} from "react-router-dom";
+import {Filters} from "../Filters";
 import {GET_USERS_QUERY} from "../graphql/queries";
 import {DELETE_USER} from "../graphql/mutations";
+
 import './users.css';
-import {Filters} from "../Filters";
 
 export const Users = () => {
     const [users, setUsers] = useState([]);
@@ -69,7 +70,7 @@ export const Users = () => {
 
 
     useEffect(() => {
-        const getFilteredProducts = (usersFromState, filter) => {
+        const getFilteredUsers = (usersFromState, filter) => {
             let result = usersFromState;
             if (filter?.gender.length > 0) {
                 result = result?.filter(user => {
@@ -80,15 +81,15 @@ export const Users = () => {
             if (filter?.gender.at(-1) === 'All') {
                 return usersFromState;
             }
-            if(filter?.age.at(-1) === true) {
+            if (filter?.age.at(-1) === true) {
                 result = result?.slice().sort((a, b) => b.age - a.age);
             }
-            if(filter?.age.at(-1) === false) {
+            if (filter?.age.at(-1) === false) {
                 result = result?.slice().sort((a, b) => a.age - b.age);
             }
             return result;
         }
-        setFilteredUsers(getFilteredProducts(users, filter));
+        setFilteredUsers(getFilteredUsers(users, filter));
     }, [filter, users])
 
     if (error) return <div>Something went wrong</div>
@@ -96,43 +97,22 @@ export const Users = () => {
 
     return (
         <div className='users'>
-            <label className='users__search-label'>
-                Search a user
-                <input
-                    placeholder='type a product...'
-                    className='users__search-input'
-                    type='text'
-                    onChange={(e) => searchUserHandler(e.target.value, data?.users)}/>
-            </label>
             <h1 className='users__header'>Users</h1>
-            {options.gender.map(gender => {
-                return (
-                    <label key={gender}>
-                        <input
-                            type='radio'
-                            name='gender'
-                            value={gender}
-                            onChange={(event) => {
-                                let newGenderOptions = [];
-                                if(event.target?.checked) {
-                                    newGenderOptions.push(gender);
-                                } else {
-                                    newGenderOptions = newGenderOptions.filter(option => option !== gender)
-                                }
-                                setFilter({...filter, gender: newGenderOptions});
-                            }}
-                        />
-                        {gender}
-                    </label>
-                )
-            })}
+            <Filters
+                data={data}
+                searchUserHandler={searchUserHandler}
+                options={options}
+                filter={filter}
+                setFilter={setFilter}
+            />
             {filteredUsers?.map(user => {
                 return (
                     <div
                         key={user.id}
                         className='user'>
                         {!user.change ? <div className='user__wrapper'>
-                                <Link className='user__link' to={`/users/${user.username}/${user.id}`}>name: {user.username}</Link>
+                                <Link className='user__link'
+                                      to={`/users/${user.username}/${user.id}`}>name: {user.username}</Link>
                                 <span>age: {user.age}</span>
                                 <span>gender: {user.gender ? 'Female' : 'Male'}</span>
                                 <button className='user__button' type='button' onClick={() => editUser(user.id)}>edit
