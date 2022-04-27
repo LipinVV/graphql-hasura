@@ -3,15 +3,14 @@ import {useMutation} from "@apollo/client";
 import {GET_USERS_QUERY} from "../../graphql/queries";
 import {UPDATE_USER} from "../../graphql/mutations";
 import './userEditor.css';
+import {RadioButton} from "../../components/tools/RadioButton";
 
-export const UserEditor = ({editUser, id}) => {
-    const genders = ['Male', 'Female'];
-    const userAgeDefaultValue = 18;
+export const UserEditor = ({name, age, role, gender, options, editUser, id}) => {
 
-    const [userName, setUserName] = useState('');
-    const [userAge, setUserAge] = useState(userAgeDefaultValue);
-    const [userGender, setUserGender] = useState(genders[0]);
-
+    const [userName, setUserName] = useState(name);
+    const [userAge, setUserAge] = useState(age);
+    const [userGender, setUserGender] = useState(gender ? 'female' : 'male');
+    const [userRole, setUserRole] = useState(role);
 
     const [updateUser, {error}] = useMutation(UPDATE_USER);
     const changeUserHandler = async (id) => {
@@ -20,7 +19,8 @@ export const UserEditor = ({editUser, id}) => {
                 id: id,
                 username: userName,
                 age: userAge,
-                gender: !!userGender
+                gender: !!userGender,
+                role: userRole
             },
             refetchQueries: [{query: GET_USERS_QUERY}]
         })
@@ -45,16 +45,20 @@ export const UserEditor = ({editUser, id}) => {
             value={userAge}
             onChange={(event) => setUserAge(Number(event.target.value))}
         />
-            {genders.map(gender =>
-                <label className='user-editor__label' key={gender}>
-                    <input
-                        className='user-editor__input'
-                        value={gender}
-                        onChange={(event) => setUserGender(event.target.value)}
-                        checked={gender === userGender}
-                        type="radio"/>
-                    {gender}
-                </label>
+            <select onChange={(event) => setUserRole(event.target.value)}>
+                {options.role.slice(0, -1).map(role => {
+                    return (
+                        <option key={role} value={role}>{role}</option>
+                    )
+                })}
+            </select>
+            {options.gender.slice(0, -1).map(gender =>
+                <RadioButton
+                    key={gender}
+                    option={gender}
+                    userOption={userGender}
+                    setUserOption={setUserGender}
+                />
             )}
             <button
                 disabled={userName === ''}

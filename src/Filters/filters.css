@@ -1,13 +1,17 @@
 .filters {
     display: grid;
     grid-gap: 10px;
+    grid-column: 1 / -1;
 }
 
 .filters__search-label {
     display: grid;
     grid-template-rows: 0.5fr 1fr;
+    max-width: 200px;
 }
 
 .filters__search-input {
-
+    height: 30px;
+    line-height: 30px;
+    font-size: 20px;
 }

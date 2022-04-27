@@ -12,7 +12,7 @@ export const Users = () => {
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
     const {loading, error, data} = useQuery(GET_USERS_QUERY);
-
+    // console.log(filteredUsers)
     useEffect(() => {
         const fetchData = async () => {
             await setUsers(data?.users);
@@ -62,11 +62,12 @@ export const Users = () => {
     }
 
     const options = {
-        gender: ['Male', 'Female', 'All'],
-        age: [true, false]
+        gender: ['male', 'female', 'all'],
+        age: [true, false],
+        role: ['developer', 'project-manager', 'administration', 'other', 'all'],
     }
 
-    const [filter, setFilter] = useState({gender: [], age: []});
+    const [filter, setFilter] = useState({gender: [], age: [], role: []});
 
 
     useEffect(() => {
@@ -74,11 +75,11 @@ export const Users = () => {
             let result = usersFromState;
             if (filter?.gender.length > 0) {
                 result = result?.filter(user => {
-                    const gender = user.gender === true ? 'Female' : 'Male';
+                    const gender = user.gender === false ? 'female' : 'male';
                     return filter.gender.includes(gender);
                 })
             }
-            if (filter?.gender.at(-1) === 'All') {
+            if (filter?.gender.at(-1) === 'all') {
                 return usersFromState;
             }
             if (filter?.age.at(-1) === true) {
@@ -86,6 +87,15 @@ export const Users = () => {
             }
             if (filter?.age.at(-1) === false) {
                 result = result?.slice().sort((a, b) => a.age - b.age);
+            }
+            if(filter.role.length > 0) {
+                result = result?.filter(user => {
+                    const role = user.role;
+                    return filter.role.includes(role);
+                })
+            }
+            if (filter?.role.at(-1) === 'all') {
+                return usersFromState;
             }
             return result;
         }
@@ -111,10 +121,14 @@ export const Users = () => {
                         key={user.id}
                         className='user'>
                         {!user.change ? <div className='user__wrapper'>
-                                <Link className='user__link'
-                                      to={`/users/${user.username}/${user.id}`}>name: {user.username}</Link>
+                                <Link
+                                    className='user__link'
+                                      to={`/users/${user.username}/${user.id}`}>
+                                    name: {user.username}
+                                </Link>
                                 <span>age: {user.age}</span>
-                                <span>gender: {user.gender ? 'Female' : 'Male'}</span>
+                                <span>gender: {user.gender ? 'male' : 'female'}</span>
+                                <span>role: {user.role}</span>
                                 <button className='user__button' type='button' onClick={() => editUser(user.id)}>edit
                                 </button>
                                 {user.remove ? <div className='user__buttons-group'>
@@ -136,7 +150,15 @@ export const Users = () => {
                                 }
                             </div>
                             :
-                            <UserEditor editUser={editUser} id={user.id}/>
+                            <UserEditor
+                                name={user.username}
+                                age={user.age}
+                                gender={user.gender}
+                                role={user.role}
+                                options={options}
+                                editUser={editUser}
+                                id={user.id}
+                            />
                         }
                     </div>
                 )
