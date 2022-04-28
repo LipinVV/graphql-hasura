@@ -1,16 +1,26 @@
 .user-editor {
     display: grid;
     width: 100%;
-    max-width: 80%;
-    margin: 0 auto;
     grid-gap: 10px;
 }
 
+.user-editor_content {
+    display: grid;
+}
+
 .user-editor__input {
+    display: flex;
+    justify-self: center;
     padding: 5px;
     font-size: 18px;
     line-height: 20px;
     cursor: pointer;
+}
+
+.user-editor_radio {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr 1fr;
 }
 
 .user-editor__label {
@@ -33,6 +43,12 @@
     cursor: not-allowed;
 }
 
+.user-editor__button:nth-of-type(1) {
+    background-color: lightseagreen;
+    color: white;
+}
+
 .user-editor__button:nth-of-type(2) {
-    background-color: mediumpurple;
+    background-color: darkgrey;
+    color: black;
 }

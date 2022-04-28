@@ -1,0 +1,6 @@
+.users__pagination {
+    display: grid;
+    justify-self: center;
+    margin: 0 auto;
+    grid-column: 1 / -1;
+}

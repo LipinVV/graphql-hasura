@@ -1,9 +1,5 @@
 .users {
-    padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    min-height: 150px;
-    grid-gap: 10px;
+
 }
 
 .users__header {
@@ -13,11 +9,11 @@
 
 .user {
     display: grid;
-    border: 3px solid mediumspringgreen;
-    padding: 10px;
-    background-color: white;
+    /*border: 2px solid deeppink;*/
+    /*background-color: white;*/
     color: black;
     text-decoration: none;
+    margin: 10px;
 }
 
 .user__wrapper {
@@ -25,7 +21,7 @@
     padding: 10px;
     display: grid;
     grid-gap: 10px;
-    min-height: 300px;
+    /*min-height: 300px;*/
 }
 
 .user__link {
@@ -47,7 +43,7 @@
 }
 
 .user__button:nth-of-type(1) {
-    background-color: mediumspringgreen;
+    background-color: skyblue;
 }
 
 .user__buttons-group {
@@ -58,8 +54,15 @@
 
 .user__button_confirm {
     justify-self: end;
+    background-color: lightgreen;
 }
 
 .user__button_cancel {
     justify-self: start;
 }
+
+/*padding: 20px;*/
+/*display: grid;*/
+/*grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));*/
+/*min-height: 150px;*/
+/*grid-gap: 10px;*/

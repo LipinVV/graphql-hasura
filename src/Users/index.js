@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from "react";
 import {useMutation, useQuery} from "@apollo/client";
-import {UserEditor} from "./UserEditor";
 import {Link} from "react-router-dom";
-import {Filters} from "../Filters";
 import {GET_USERS_QUERY} from "../graphql/queries";
 import {DELETE_USER} from "../graphql/mutations";
+import {UserEditor} from "./UserEditor";
+import {Pagination} from "../components/pagination/Pagination";
+import {Filters} from "../Filters";
+import {Button, ButtonGroup, Card, Grid, MenuItem, Paper} from "@mui/material";
 
 import './users.css';
 
@@ -12,7 +14,7 @@ export const Users = () => {
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
     const {loading, error, data} = useQuery(GET_USERS_QUERY);
-    // console.log(filteredUsers)
+
     useEffect(() => {
         const fetchData = async () => {
             await setUsers(data?.users);
@@ -39,16 +41,11 @@ export const Users = () => {
         }
     }
 
-    const editUser = (id) => {
-        setUsers(users.map(user => user.id === id ? {...user, change: !user.change} : user))
-    }
-
-
     const removeUser = (id) => {
         setUsers(users.map(user => user.id === id ? {...user, remove: !user.remove} : user))
     }
 
-    const searchUserHandler = (word, users) => {
+    const searchUserHandler = (word) => {
         const arrangedUsers = users.filter((user) => {
             if (word === '') {
                 return user;
@@ -62,13 +59,24 @@ export const Users = () => {
     }
 
     const options = {
-        gender: ['male', 'female', 'all'],
+        gender: ['male', 'female'],
         age: [true, false],
-        role: ['developer', 'project-manager', 'administration', 'other', 'all'],
+        role: ['developer', 'project-manager', 'administration', 'other'],
     }
 
-    const [filter, setFilter] = useState({gender: [], age: [], role: []});
+    const [filter, setFilter] = useState({gender: [], age: null, role: []});
 
+
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const PAGE_SIZE = 8;
+    const indexOfLastItem = currentPage * PAGE_SIZE;
+    const indexOfFirstItem = indexOfLastItem - PAGE_SIZE;
+    const currentUsersOnThePage = filteredUsers?.slice(indexOfFirstItem, indexOfLastItem);
+
+    const editUser = (id) => {
+        setUsers(users.map(user => user.id === id ? {...user, change: !user.change} : user))
+    }
 
     useEffect(() => {
         const getFilteredUsers = (usersFromState, filter) => {
@@ -79,23 +87,17 @@ export const Users = () => {
                     return filter.gender.includes(gender);
                 })
             }
-            if (filter?.gender.at(-1) === 'all') {
-                return usersFromState;
-            }
-            if (filter?.age.at(-1) === true) {
+            if (filter?.age === true) {
                 result = result?.slice().sort((a, b) => b.age - a.age);
             }
-            if (filter?.age.at(-1) === false) {
+            if (filter?.age === false) {
                 result = result?.slice().sort((a, b) => a.age - b.age);
             }
-            if(filter.role.length > 0) {
+            if (filter?.role.length > 0) {
                 result = result?.filter(user => {
                     const role = user.role;
                     return filter.role.includes(role);
                 })
-            }
-            if (filter?.role.at(-1) === 'all') {
-                return usersFromState;
             }
             return result;
         }
@@ -106,7 +108,7 @@ export const Users = () => {
     if (loading) return <div>Loading users...</div>
 
     return (
-        <div className='users'>
+        <div>
             <h1 className='users__header'>Users</h1>
             <Filters
                 data={data}
@@ -115,54 +117,73 @@ export const Users = () => {
                 filter={filter}
                 setFilter={setFilter}
             />
-            {filteredUsers?.map(user => {
-                return (
-                    <div
-                        key={user.id}
-                        className='user'>
-                        {!user.change ? <div className='user__wrapper'>
-                                <Link
-                                    className='user__link'
-                                      to={`/users/${user.username}/${user.id}`}>
-                                    name: {user.username}
-                                </Link>
-                                <span>age: {user.age}</span>
-                                <span>gender: {user.gender ? 'male' : 'female'}</span>
-                                <span>role: {user.role}</span>
-                                <button className='user__button' type='button' onClick={() => editUser(user.id)}>edit
-                                </button>
-                                {user.remove ? <div className='user__buttons-group'>
-                                        <button
-                                            className='user__button user__button_confirm'
-                                            type='button'
-                                            onClick={() => deleteUserHandler(user.id)}>confirm
-                                        </button>
-                                        <button
-                                            className='user__button user__button_cancel'
-                                            type='button'
-                                            onClick={() => removeUser(user.id)}>cancel
-                                        </button>
-                                    </div>
-                                    :
-                                    <button className='user__button' type='button'
-                                            onClick={() => removeUser(user.id)}>delete
-                                    </button>
-                                }
-                            </div>
-                            :
-                            <UserEditor
-                                name={user.username}
-                                age={user.age}
-                                gender={user.gender}
-                                role={user.role}
-                                options={options}
-                                editUser={editUser}
-                                id={user.id}
-                            />
-                        }
-                    </div>
-                )
-            })}
+            <Grid container spacing={1} className='users'>
+                {currentUsersOnThePage?.map(user => {
+                    return (
+                        <Grid
+                            item
+                            xs={3}
+                            key={user.id}
+                            className='user'>
+                            {!user.change ?
+                                <Card className='user__wrapper'>
+                                    <Link
+                                        className='user__link'
+                                        to={`/users/${user.username}/${user.id}`}>
+                                        name: {user.username}
+                                    </Link>
+                                    <MenuItem>age: {user.age}</MenuItem>
+                                    <MenuItem>gender: {user.gender ? 'male' : 'female'}</MenuItem>
+                                    <MenuItem>role: {user.role}</MenuItem>
+                                    <ButtonGroup>
+                                        {!user.remove && <Button className='user__button' type='button'
+                                                 onClick={() => editUser(user.id)}>edit
+                                        </Button>}
+                                        {user.remove ? <Paper className='user__buttons-group'>
+                                                <ButtonGroup orientation='horizontal'>
+                                                    <Button
+                                                        className='user__button user__button_confirm'
+                                                        type='button'
+                                                        onClick={() => deleteUserHandler(user.id)}>confirm
+                                                    </Button>
+                                                    <Button
+                                                        className='user__button user__button_cancel'
+                                                        type='button'
+                                                        onClick={() => removeUser(user.id)}>cancel
+                                                    </Button>
+                                                </ButtonGroup>
+                                            </Paper>
+                                            :
+                                            <Button className='user__button' type='button'
+                                                    onClick={() => removeUser(user.id)}>delete
+                                            </Button>
+                                        }
+                                    </ButtonGroup>
+                                </Card>
+                                :
+                                <UserEditor
+                                    name={user.username}
+                                    age={user.age}
+                                    gender={user.gender}
+                                    role={user.role}
+                                    options={options}
+                                    editUser={editUser}
+                                    id={user.id}
+                                />
+                            }
+                        </Grid>
+                    )
+                })}
+            </Grid>
+            <Pagination
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                users={users}
+                filteredUsers={filteredUsers}
+                currentUsersOnThePage={currentUsersOnThePage}
+                pageSize={PAGE_SIZE}
+                indexOfLastItem={indexOfLastItem}
+            />
         </div>
     )
 }

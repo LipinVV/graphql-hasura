@@ -1,7 +1,9 @@
 .filters {
     display: grid;
     grid-gap: 10px;
-    grid-column: 1 / -1;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    background-color: white;
+
 }
 
 .filters__search-label {
@@ -14,4 +16,14 @@
     height: 30px;
     line-height: 30px;
     font-size: 20px;
+}
+
+div .filters__clear-button {
+    max-width: 200px;
+    justify-self: right;
+    margin-right: 20px;
+}
+
+.filters__clear-button .MuiButtonBase-root {
+    background-color: mediumpurple;
 }
