@@ -1,29 +1,29 @@
 .filters {
-    display: grid;
-    grid-gap: 10px;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
     background-color: white;
+    padding: 10px;
+}
 
+.filters__filter {
+    display: grid;
+    align-items: center;
+}
+
+.filters__filter_wrapper {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    justify-content: center;
+    align-items: center;
 }
 
 .filters__search-label {
     display: grid;
     grid-template-rows: 0.5fr 1fr;
-    max-width: 200px;
+    width: 100%;
 }
 
 .filters__search-input {
     height: 30px;
     line-height: 30px;
     font-size: 20px;
-}
-
-div .filters__clear-button {
-    max-width: 200px;
-    justify-self: right;
-    margin-right: 20px;
-}
-
-.filters__clear-button .MuiButtonBase-root {
-    background-color: mediumpurple;
 }

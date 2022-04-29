@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import './filters.css';
 import {
-    Button,
+    Button, Card,
     FormControl,
-    FormControlLabel,
+    FormControlLabel, Grid,
     Input,
     InputLabel,
     MenuItem,
@@ -12,93 +12,167 @@ import {
     Select
 } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 
 export const Filters = ({searchUserHandler, options, setFilter, filter, data}) => {
 
     const inputs = document.getElementsByTagName('input');
     const cancelInputsHandler = () => {
-        const h = Array.prototype.slice.call(inputs);
-        h.forEach(element => element.checked = false);
-        setFilter({...filter, age: null, role: [], gender: []});
+        const convertedArrayFromCollection = Array.prototype.slice.call(inputs);
+        convertedArrayFromCollection.forEach(element => element.checked = false);
+        const searchInput = document.getElementById('search-input');
+        searchInput.value = '';
+        setFilter({...filter, age: [], role: [], gender: []});
     }
 
-    const ageRanges = ['asc', 'desc'];
+    const [role, setRole] = useState('');
+    const roleHandleChange = () => {
+        setRole('');
+    };
 
     return (
-        <div className='filters'>
-            <InputLabel className='filters__search-label'>
-                Search a user
-                <Input
-                    placeholder='type a name...'
-                    className='filters__search-input'
-                    type='text'
-                    onChange={(e) => searchUserHandler(e.target.value, data?.users)}/>
-            </InputLabel>
-            <Button
-                startIcon={<ClearIcon/>}
-                className='filters__clear-button'
-                variant="contained"
-                size='medium'
-                type='button'
-                onClick={(event) => {
-                    if (event.target) {
-                        cancelInputsHandler();
-                    }
-                }}>Clear filters</Button>
-            <RadioGroup>
-                {ageRanges.map(age =>
-                    <FormControlLabel
-                        key={age}
-                        control={<Radio onChange={(event) => {
-                            if (event.target.checked) {
-                                setFilter({...filter, age: !filter.age});
-                            }
-                        }}/>}
-                        label={age}
-                        />
-                )}
-            </RadioGroup>
-            <FormControl>
-                {options.gender.map(gender => {
-                    return (
-                        <InputLabel key={gender}>
-                            <Input
-                                type='radio'
-                                name='gender'
-                                value={gender}
-                                onChange={(event) => {
-                                    let newGenderOptions = [];
-                                    if (event.target?.checked) {
-                                        newGenderOptions.push(gender);
-                                    } else {
-                                        newGenderOptions = newGenderOptions.filter(option => option !== gender)
-                                    }
-                                    setFilter({...filter, gender: newGenderOptions});
-                                }}
-                            />
-                            {gender}
-                        </InputLabel>
-                    )
-                })}
-                <FormControl className='filter__select-role'>
-                    <InputLabel id='user-editor__select-label'>Role</InputLabel>
-                    <Select labelId='filter__select' label='Role' onChange={(event) => {
-                        let newRoleOptions = [];
+        <Grid
+            justifyContent='space-around'
+            container
+            spacing={{ xs: 1 }}
+            className='filters'
+        >
+            <Grid
+                className='filters__filter'
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                lg={3}
+            >
+                <InputLabel
+                    sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}
+                    className='filters__search-label'
+                >
+                    <PersonSearchIcon/>
+                    <Input
+                        id='search-input'
+                        placeholder='type a name...'
+                        className='filters__search-input'
+                        type='text'
+                        onChange={(e) => searchUserHandler(e.target.value, data?.users)}
+                    />
+                </InputLabel>
+            </Grid>
+            <Grid className='filters__filter' item>
+
+                    <FormControl>
+                        <RadioGroup>
+                            {options.age.map(age =>
+                                <FormControlLabel
+                                    sx={{color: 'black'}}
+                                    key={age}
+                                    value={age}
+                                    control={<Radio
+                                        type='radio'
+                                        value={age}
+                                        checked={age === filter.age[0]}
+                                        onChange={(event) => {
+                                            let newAgeOptions = [];
+                                            if (event.target?.checked) {
+                                                newAgeOptions.push(age);
+                                            } else {
+                                                newAgeOptions = newAgeOptions.filter(option => option !== age)
+                                            }
+                                            setFilter({...filter, age: newAgeOptions});
+                                        }}/>}
+                                    label={age}>
+                                    {age}
+                                </FormControlLabel>
+                            )}
+                        </RadioGroup>
+                    </FormControl>
+
+            </Grid>
+            <Grid className='filters__filter' item>
+
+                    <FormControl>
+                        <RadioGroup>
+                            {options.gender.map(gender => {
+                                return (
+                                    <FormControlLabel
+                                        value={gender}
+                                        key={gender}
+                                        sx={{color: 'black'}}
+                                        control={<Radio
+                                            type='radio'
+                                            value={gender}
+                                            checked={gender === filter.gender[0]}
+                                            onChange={(event) => {
+                                                let newGenderOptions = [];
+                                                if (event.target?.checked) {
+                                                    newGenderOptions.push(gender);
+                                                } else {
+                                                    newGenderOptions = newGenderOptions.filter(option => option !== gender)
+                                                }
+                                                setFilter({...filter, gender: newGenderOptions});
+                                            }}/>
+                                        } label={gender}>{gender}
+                                    </FormControlLabel>
+                                )
+                            })}
+                        </RadioGroup>
+                    </FormControl>
+
+            </Grid>
+            <Grid className='filters__filter' item>
+
+                    <FormControl className='filter__select-role'>
+                        <InputLabel id='user-editor__select-label'>Role</InputLabel>
+                        <Select
+                            sx={{width: '200px'}}
+                            labelId='filter__select'
+                            label='Role'
+                            value={role}
+                            onChange={(event) => {
+                                setRole(event.target.value);
+                                let newRoleOptions = [];
+                                if (event.target) {
+                                    newRoleOptions.push(event.target.value);
+                                } else {
+                                    newRoleOptions = newRoleOptions.filter(option => option !== event.target.value)
+                                }
+                                setFilter({...filter, role: newRoleOptions});
+                            }}>
+                            <MenuItem disabled={true}>Role</MenuItem>
+                            {options.role.map(role => {
+                                return (
+                                    <MenuItem key={role} value={role}>{role}</MenuItem>
+                                )
+                            })}
+                        </Select>
+                    </FormControl>
+
+            </Grid>
+            <Grid className='filters__filter'
+                  item
+                  // sm={2}
+                  md={3}
+                  lg={3}
+                  // justifyItems='right'
+            >
+
+                <Button
+                    startIcon={<ClearIcon/>}
+                    className='filters__clear-button'
+                    variant="contained"
+                    size='medium'
+                    type='button'
+                    onClick={(event) => {
                         if (event.target) {
-                            newRoleOptions.push(event.target.value);
-                        } else {
-                            newRoleOptions = newRoleOptions.filter(option => option !== event.target.value)
+                            cancelInputsHandler();
+                            roleHandleChange();
+                            searchUserHandler('', data?.users);
                         }
-                        setFilter({...filter, role: newRoleOptions});
-                    }}>
-                        {options.role.map(role => {
-                            return (
-                                <MenuItem key={role} value={role}>{role}</MenuItem>
-                            )
-                        })}
-                    </Select>
-                </FormControl>
-            </FormControl>
-        </div>
+                    }}>Clear filters
+                </Button>
+
+            </Grid>
+        </Grid>
     )
 }

@@ -45,7 +45,7 @@ export const Users = () => {
         setUsers(users.map(user => user.id === id ? {...user, remove: !user.remove} : user))
     }
 
-    const searchUserHandler = (word) => {
+    const searchUserHandler = (word, users) => {
         const arrangedUsers = users.filter((user) => {
             if (word === '') {
                 return user;
@@ -60,11 +60,11 @@ export const Users = () => {
 
     const options = {
         gender: ['male', 'female'],
-        age: [true, false],
+        age: ['asc', 'desc'],
         role: ['developer', 'project-manager', 'administration', 'other'],
     }
 
-    const [filter, setFilter] = useState({gender: [], age: null, role: []});
+    const [filter, setFilter] = useState({gender: [], age: [], role: []});
 
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -87,10 +87,10 @@ export const Users = () => {
                     return filter.gender.includes(gender);
                 })
             }
-            if (filter?.age === true) {
+            if (filter?.age[0] === 'desc') {
                 result = result?.slice().sort((a, b) => b.age - a.age);
             }
-            if (filter?.age === false) {
+            if (filter?.age[0] === 'asc') {
                 result = result?.slice().sort((a, b) => a.age - b.age);
             }
             if (filter?.role.length > 0) {
@@ -108,7 +108,7 @@ export const Users = () => {
     if (loading) return <div>Loading users...</div>
 
     return (
-        <div>
+        <div className='users'>
             <h1 className='users__header'>Users</h1>
             <Filters
                 data={data}
@@ -116,13 +116,17 @@ export const Users = () => {
                 options={options}
                 filter={filter}
                 setFilter={setFilter}
+                currentUsersOnThePage={currentUsersOnThePage}
             />
-            <Grid container spacing={1} className='users'>
+            <Grid container spacing={{ xs: 1, sm: 2, md: 3 }} className='users__template'>
                 {currentUsersOnThePage?.map(user => {
                     return (
                         <Grid
                             item
-                            xs={3}
+                            xs={12}
+                            sm={6}
+                            md={4}
+                            lg={3}
                             key={user.id}
                             className='user'>
                             {!user.change ?
