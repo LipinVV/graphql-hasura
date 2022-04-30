@@ -52,7 +52,7 @@ export const Pagination = ({
                     {pages?.length > 0 && pages.map(number => {
                         return (
                             <Button
-                                sx={{backgroundColor: 'white'}}
+                                variant='pagination'
                                 key={number}
                                 onClick={() => setCurrentPage(number)}
                                 disabled={currentPage === number}

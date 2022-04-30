@@ -21,10 +21,11 @@
 }
 
 .user__wrapper {
-    border: 3px solid cornflowerblue;
+    border: 10px solid cornflowerblue;
     padding: 10px;
     display: grid;
     grid-gap: 10px;
+    text-transform: capitalize;
 }
 
 .user__link {
@@ -32,10 +33,17 @@
     color: inherit;
 }
 
+.user__link:hover {
+    background-color: yellow;
+}
+
+.user__link .user__listItem:nth-of-type(1) {
+    background-color: yellow;
+}
+
 .user__button {
     cursor: pointer;
     border: none;
-    background-color: lightskyblue;
     padding: 10px;
     font-size: 15px;
     font-weight: 600;
@@ -46,7 +54,7 @@
 }
 
 .user__button:nth-of-type(1) {
-    background-color: skyblue;
+    /*background-color: skyblue;*/
 }
 
 .user__buttons-group {

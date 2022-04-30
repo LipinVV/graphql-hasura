@@ -6,7 +6,7 @@ import {DELETE_USER} from "../graphql/mutations";
 import {UserEditor} from "./UserEditor";
 import {Pagination} from "../components/pagination/Pagination";
 import {Filters} from "../Filters";
-import {Button, ButtonGroup, Card, Grid, MenuItem, Paper} from "@mui/material";
+import {Button, ButtonGroup, Card, Grid, List, ListItem, MenuItem, Paper} from "@mui/material";
 
 import './users.css';
 
@@ -118,7 +118,7 @@ export const Users = () => {
                 setFilter={setFilter}
                 currentUsersOnThePage={currentUsersOnThePage}
             />
-            <Grid container spacing={{ xs: 1, sm: 2, md: 3 }} className='users__template'>
+            <Grid container spacing={{xs: 1, sm: 2, md: 3}} className='users__template'>
                 {currentUsersOnThePage?.map(user => {
                     return (
                         <Grid
@@ -130,36 +130,45 @@ export const Users = () => {
                             key={user.id}
                             className='user'>
                             {!user.change ?
-                                <Card className='user__wrapper'>
-                                    <Link
-                                        className='user__link'
-                                        to={`/users/${user.username}/${user.id}`}>
-                                        name: {user.username}
-                                    </Link>
-                                    <MenuItem>age: {user.age}</MenuItem>
-                                    <MenuItem>gender: {user.gender ? 'male' : 'female'}</MenuItem>
-                                    <MenuItem>role: {user.role}</MenuItem>
+                                <Card elevation={10} className='user__wrapper'>
+                                    <List>
+                                        <Link
+                                            className='user__link'
+                                            to={`/users/${user.username}/${user.id}`}>
+                                            <ListItem className='user__listItem'>name: {user.username}</ListItem>
+                                        </Link>
+                                        <ListItem className='user__listItem'>age: {user.age}</ListItem>
+                                        <ListItem className='user__listItem'>gender: {user.gender ? 'male' : 'female'}</ListItem>
+                                        <ListItem className='user__listItem'>role: {user.role}</ListItem>
+                                    </List>
                                     <ButtonGroup>
-                                        {!user.remove && <Button className='user__button' type='button'
-                                                 onClick={() => editUser(user.id)}>edit
+                                        {!user.remove && <Button
+                                            variant='userEdit'
+                                            className='user__button'
+                                            type='button'
+                                            onClick={() => editUser(user.id)}>edit
                                         </Button>}
-                                        {user.remove ? <Paper className='user__buttons-group'>
-                                                <ButtonGroup orientation='horizontal'>
-                                                    <Button
-                                                        className='user__button user__button_confirm'
-                                                        type='button'
-                                                        onClick={() => deleteUserHandler(user.id)}>confirm
-                                                    </Button>
-                                                    <Button
-                                                        className='user__button user__button_cancel'
-                                                        type='button'
-                                                        onClick={() => removeUser(user.id)}>cancel
-                                                    </Button>
-                                                </ButtonGroup>
-                                            </Paper>
+                                        {user.remove ? <ButtonGroup
+                                                className='user__buttons-group'
+                                                orientation='horizontal'
+                                            >
+                                                <Button
+                                                    className='user__button user__button_confirm'
+                                                    type='button'
+                                                    onClick={() => deleteUserHandler(user.id)}>confirm
+                                                </Button>
+                                                <Button
+                                                    className='user__button user__button_cancel'
+                                                    type='button'
+                                                    onClick={() => removeUser(user.id)}>cancel
+                                                </Button>
+                                            </ButtonGroup>
                                             :
-                                            <Button className='user__button' type='button'
-                                                    onClick={() => removeUser(user.id)}>delete
+                                            <Button
+                                                variant='userDelete'
+                                                className='user__button'
+                                                type='button'
+                                                onClick={() => removeUser(user.id)}>delete
                                             </Button>
                                         }
                                     </ButtonGroup>
