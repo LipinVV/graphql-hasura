@@ -4,3 +4,7 @@
     margin: 0 auto;
     grid-column: 1 / -1;
 }
+
+.users-template__pagination-buttons {
+    height: 100%;
+}

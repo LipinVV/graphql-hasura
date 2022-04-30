@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import './pagination.css';
 import {Button} from "@mui/material";
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import {NavigateBefore} from "@mui/icons-material";
 
 export const Pagination = ({
                                filteredUsers,
@@ -41,10 +43,11 @@ export const Pagination = ({
             <section className='users-template__pagination-controls'>
                 <div className='users-template__pagination-buttons'>
                     <Button
-                        sx={{backgroundColor: 'white'}}
+                        variant='pagination'
                         disabled={currentPage === 1}
                         className='users-template__pagination-button'
-                        onClick={handleClickDecrease}>Previous
+                        onClick={handleClickDecrease}>
+                        <NavigateBefore/>
                     </Button>
                     {pages?.length > 0 && pages.map(number => {
                         return (
@@ -61,10 +64,11 @@ export const Pagination = ({
                     })
                     }
                     <Button
-                        sx={{backgroundColor: 'white'}}
+                        variant='pagination'
                         disabled={indexOfLastItem >= filteredUsers?.length}
                         className='users-template__pagination-button'
-                        onClick={handleClickIncrease}>Next
+                        onClick={handleClickIncrease}>
+                        <NavigateNextIcon />
                     </Button>
                 </div>
             </section>
