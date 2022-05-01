@@ -6,7 +6,8 @@ import {DELETE_USER} from "../graphql/mutations";
 import {UserEditor} from "./UserEditor";
 import {Pagination} from "../components/pagination/Pagination";
 import {Filters} from "../Filters";
-import {Button, ButtonGroup, Card, Grid, List, ListItem, MenuItem, Paper} from "@mui/material";
+import {Button, ButtonGroup, Card, Grid, List, ListItem} from "@mui/material";
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 
 import './users.css';
 
@@ -69,7 +70,7 @@ export const Users = () => {
 
     const [currentPage, setCurrentPage] = useState(1);
 
-    const PAGE_SIZE = 8;
+    const PAGE_SIZE = 12;
     const indexOfLastItem = currentPage * PAGE_SIZE;
     const indexOfFirstItem = indexOfLastItem - PAGE_SIZE;
     const currentUsersOnThePage = filteredUsers?.slice(indexOfFirstItem, indexOfLastItem);
@@ -118,7 +119,10 @@ export const Users = () => {
                 setFilter={setFilter}
                 currentUsersOnThePage={currentUsersOnThePage}
             />
-            <Grid container spacing={{xs: 1, sm: 2, md: 3}} className='users__template'>
+            <Grid
+                container spacing={{xs: 1, sm: 2, md: 3}}
+                className='users__template'
+            >
                 {currentUsersOnThePage?.map(user => {
                     return (
                         <Grid
@@ -135,7 +139,7 @@ export const Users = () => {
                                         <Link
                                             className='user__link'
                                             to={`/users/${user.username}/${user.id}`}>
-                                            <ListItem className='user__listItem'>name: {user.username}</ListItem>
+                                            <ListItem className='user__listItem'><AssignmentIndIcon fontSize={"large"} sx={{color: 'white', marginLeft: '-10px', marginRight: '10px'}} /> {user.username}</ListItem>
                                         </Link>
                                         <ListItem className='user__listItem'>age: {user.age}</ListItem>
                                         <ListItem className='user__listItem'>gender: {user.gender ? 'male' : 'female'}</ListItem>
@@ -153,11 +157,13 @@ export const Users = () => {
                                                 orientation='horizontal'
                                             >
                                                 <Button
+                                                    variant='userEdit'
                                                     className='user__button user__button_confirm'
                                                     type='button'
                                                     onClick={() => deleteUserHandler(user.id)}>confirm
                                                 </Button>
                                                 <Button
+                                                    variant='userDelete'
                                                     className='user__button user__button_cancel'
                                                     type='button'
                                                     onClick={() => removeUser(user.id)}>cancel

@@ -8,8 +8,10 @@ export const palette = {
     four: '#000d51',
     black: '#152836',
     dark: '#050811',
-    green: '#00FA9A',
-    yellow: '#FFD700'
+    green: '#06d6a0',
+    yellow: '#FFD700',
+    red: '#FF0000',
+    orange: '#ee6c4d'
 }
 
 const pagination_buttons = {
@@ -70,6 +72,25 @@ const paper_for_user = {
     }
 }
 
+const filter_button_clear = {
+    props: {
+        variant: 'clear'
+    },
+    style: {
+        backgroundColor: palette.orange,
+        textTransform: 'capitalize',
+        height: '50px',
+        width: '150px',
+        fontSize: '15px',
+        color: 'white',
+        ":hover": {
+            backgroundColor: palette.red
+        }
+    }
+}
+
+// f               // sx={{backgroundColor: '#ee6c4d', textTransform: 'capitalize', height: '50px', '&:hover' : {backgroundColor: 'red'}}}
+
 
 export const theme = createTheme({
     components: {
@@ -77,7 +98,8 @@ export const theme = createTheme({
             variants: [
                 pagination_buttons,
                 user_button_edit,
-                user_button_delete
+                user_button_delete,
+                filter_button_clear
             ]
         },
         MuiPaper: {

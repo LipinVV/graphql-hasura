@@ -1,11 +1,12 @@
 .users {
     display: grid;
-    grid-gap: 20px;
+    grid-gap: 30px;
     padding: 40px;
 }
 
 .users__template {
-
+    max-height: 600px;
+    overflow: auto;
 }
 
 .users__header {
@@ -38,7 +39,12 @@
 }
 
 .user__link .user__listItem:nth-of-type(1) {
-    background-color: yellow;
+    background-color: #73d2de;
+    border-radius: 5px;
+}
+
+.user__link .user__listItem:nth-of-type(1):hover {
+    background-color: #8ac926;
 }
 
 .user__button {
@@ -53,16 +59,6 @@
     justify-self: center;
 }
 
-.user__button:nth-of-type(1) {
-    /*background-color: skyblue;*/
-}
-
-.user__buttons-group {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 10px;
-}
-
 .user__button_confirm {
     justify-self: end;
     background-color: lightgreen;
@@ -71,9 +67,3 @@
 .user__button_cancel {
     justify-self: start;
 }
-
-/*padding: 20px;*/
-/*display: grid;*/
-/*grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));*/
-/*min-height: 150px;*/
-/*grid-gap: 10px;*/

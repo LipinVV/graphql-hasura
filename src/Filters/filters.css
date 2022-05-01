@@ -1,6 +1,7 @@
 .filters {
-    background-color: white;
+    background-color: #1aa7ec;
     padding: 10px;
+    border-radius: 10px;
 }
 
 .filters__filter {
@@ -17,13 +18,21 @@
 }
 
 .filters__search-label {
-    display: grid;
-    grid-template-rows: 0.5fr 1fr;
-    width: 100%;
+
 }
 
 .filters__search-input {
     height: 30px;
     line-height: 30px;
     font-size: 20px;
+}
+
+.filters__search-input::placeholder {
+    color: white;
+}
+
+.filter__select {
+    width: 200px;
+    background-color: white;
+    height: 50px;
 }
