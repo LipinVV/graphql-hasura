@@ -2,10 +2,12 @@
     display: grid;
     width: 100%;
     grid-gap: 10px;
+    border: 10px solid #FFD700;
 }
 
 .user-editor_content {
     display: grid;
+    grid-gap: 5px;
 }
 
 .user-editor__input {
@@ -35,7 +37,7 @@
     padding: 10px;
     font-size: 15px;
     font-weight: 600;
-    max-height: 50px;
+    height: 100%;
     border-radius: 12px;
 }
 
@@ -43,12 +45,34 @@
     cursor: not-allowed;
 }
 
+.user-editor__select {
+    padding: 10px;
+}
+
 .user-editor__button:nth-of-type(1) {
-    background-color: lightseagreen;
+    background-color: #6495EDFF;
+    text-transform: capitalize;
     color: white;
+    border: none;
+    padding: 12px;
+}
+
+.user-editor__button:nth-of-type(1):hover {
+    background-color: #06d6a0;
+    color: black;
+    border: none;
 }
 
 .user-editor__button:nth-of-type(2) {
-    background-color: darkgrey;
+    background-color: #617485;
+    color: white;
+    text-transform: capitalize;
+    border: none;
+    padding: 12px;
+}
+
+.user-editor__button:nth-of-type(2):hover {
+    background-color: #FFD700;
     color: black;
+    border: none;
 }

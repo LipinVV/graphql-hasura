@@ -49,7 +49,7 @@ export const Filters = ({searchUserHandler, options, setFilter, filter, data}) =
                     sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}
                     className='filters__search-label'
                 >
-                    <PersonSearchIcon/>
+                    <PersonSearchIcon fontSize={"large"} sx={{color: 'white'}}/>
                     <Input
                         sx={{color: 'white'}}
                         id='search-input'

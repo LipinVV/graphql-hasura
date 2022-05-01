@@ -11,7 +11,7 @@ import {
     Input,
     InputLabel,
     MenuItem,
-    Paper,
+    Paper, Radio, RadioGroup,
     Select
 } from "@mui/material";
 import {RadioButton} from "../../components/tools/RadioButton";
@@ -40,7 +40,7 @@ export const UserEditor = ({name, age, role, gender, options, editUser, id}) => 
             console.error(error)
         }
     }
-
+    console.log(userGender)
     return (
         <Card
             className='user-editor'
@@ -48,7 +48,7 @@ export const UserEditor = ({name, age, role, gender, options, editUser, id}) => 
             <CardContent
                 className='user-editor_content'
             >
-                <InputLabel>username
+                <InputLabel>
                     <Input
                         className='user-editor__input'
                         placeholder='user'
@@ -57,16 +57,16 @@ export const UserEditor = ({name, age, role, gender, options, editUser, id}) => 
                         onChange={(event) => setUserName(event.target.value)}
                     />
                 </InputLabel>
-                <InputLabel>age
+                <InputLabel>
                     <Input
                         className='user-editor__input'
-                        placeholder='18'
+                        placeholder='age'
                         type='number'
                         value={userAge}
                         onChange={(event) => setUserAge(Number(event.target.value))}
                     />
                 </InputLabel>
-                <FormControl>
+                <FormControl className='user-editor__select'>
                     <InputLabel id='user-editor__select-label'>Role</InputLabel>
                     <Select labelId='editor__select' label='Role' onChange={(event) => setUserRole(event.target.value)}>
                         {options.role.slice(0, -1).map(role => {
@@ -81,12 +81,18 @@ export const UserEditor = ({name, age, role, gender, options, editUser, id}) => 
                     className='user-editor_radio'
                 >
                     {options.gender.map(gender =>
-                        <RadioButton
+                        <RadioGroup
                             key={gender}
-                            option={gender}
-                            userOption={userGender}
-                            setUserOption={setUserGender}
-                        />
+                            sx={{height: '35px', justifyContent: 'center'}}
+                        >
+                            <Radio
+                                size={'small'}
+                                type='radio'
+                                value={gender}
+                                checked={gender === userGender}
+                                onChange={(event) => setUserGender(event.target.value)}
+                            />{gender}
+                        </RadioGroup>
                     )}
                 </Paper>
                 <ButtonGroup orientation='horizontal'>

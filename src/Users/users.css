@@ -27,6 +27,7 @@
     display: grid;
     grid-gap: 10px;
     text-transform: capitalize;
+    min-height: 300px;
 }
 
 .user__link {
