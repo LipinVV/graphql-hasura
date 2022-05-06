@@ -40,7 +40,7 @@ export const UserEditor = ({name, age, role, gender, options, editUser, id}) => 
             console.error(error)
         }
     }
-    console.log(userGender)
+
     return (
         <Card
             className='user-editor'

@@ -5,9 +5,10 @@
     border: 10px solid #FFD700;
 }
 
-.user-editor_content {
+div .user-editor_content {
     display: grid;
     grid-gap: 5px;
+    padding: 10px;
 }
 
 .user-editor__input {
