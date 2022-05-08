@@ -6,6 +6,8 @@ import {User} from "./Users/User";
 import {Admin} from "./Admin";
 import {ThemeProvider} from "@mui/material";
 import {theme} from "./theme/theme";
+import {NoMatch} from "./NoMatch";
+import {Charts} from "./Charts";
 import './App.css';
 
 
@@ -14,11 +16,13 @@ function App() {
         <ThemeProvider theme={theme}>
             <div className="App">
                 <Routes>
-                    <Route path='/' element={<Navigation/>}/>
-                    <Route path='/admin' element={<Admin/>}/>
-                    <Route path='/users' element={<Users/>}/>
-                    <Route path='/users/:user/:id' element={<User/>}/>
-                    {/*<Route path="*" element={<NoMatch />} />*/}
+                    <Route path='/' element={<Navigation/>}>
+                        <Route path='/admin' element={<Admin/>}/>
+                        <Route path='/users' element={<Users/>}/>
+                        <Route path='/users/:user/:id' element={<User/>}/>
+                        <Route path='/charts' element={<Charts />}/>
+                    </Route>
+                    <Route path="*" element={<NoMatch />} />
                 </Routes>
             </div>
         </ThemeProvider>
