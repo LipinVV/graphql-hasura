@@ -11,7 +11,9 @@ export const palette = {
     green: '#06d6a0',
     yellow: '#FFD700',
     red: '#FF0000',
-    orange: '#ee6c4d'
+    orange: '#ee6c4d',
+    grey: '#617485',
+    chartBG: '#ffffff'
 }
 
 const pagination_buttons = {
@@ -42,6 +44,9 @@ const user_button_edit = {
         fontSize: '15px',
         ":hover": {
             backgroundColor: palette.green
+        },
+        "&:disabled": {
+            backgroundColor: palette.grey,
         }
     }
 }

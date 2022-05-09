@@ -1,0 +1,31 @@
+.navigation {
+    display: grid;
+}
+
+.navigation__bar {
+    background-color: #1aa7ec;
+    border-radius: 10px;
+}
+
+.navigation__links {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 0;
+    padding: 0;
+}
+
+.navigation__link {
+    color: white;
+    justify-self: center;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.navigation__link:hover {
+    background-color: #06d6a0;
+    border-radius: 10px;
+}

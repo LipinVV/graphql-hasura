@@ -1,19 +1,20 @@
 import {Outlet, Link} from "react-router-dom";
 import React from "react";
+import './navigation.css';
 
 export const Navigation = () => {
 
     return (
-        <div>
-            <nav>
-                <ul className='links' style={{display: 'grid', gridGap: '20px', gridTemplateColumns: '1fr 1fr 1fr'}}>
-                    <Link style={{color: 'white', justifySelf: 'center'}} to='/users'>Users</Link>
-                    <Link style={{color: 'white', justifySelf: 'center'}} to='/admin'>Admin</Link>
-                    <Link style={{color: 'white', justifySelf: 'center'}} to='/charts'>Charts</Link>
+        <div className='navigation'>
+            <nav className='navigation__bar'>
+                <ul className='navigation__links'>
+                    <Link className='navigation__link' to='/users'>Users</Link>
+                    <Link className='navigation__link'  to='/admin'>Admin</Link>
+                    <Link className='navigation__link'  to='/charts'>Charts</Link>
                 </ul>
             </nav>
             <hr/>
-            <Outlet/>
+            <Outlet style={{display: 'grid'}}/>
         </div>
     )
 }

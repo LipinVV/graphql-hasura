@@ -3,8 +3,19 @@ import {useMutation} from "@apollo/client";
 import {INSERT_USER} from "../graphql/mutations";
 import {GET_USERS_QUERY} from "../graphql/queries";
 import './admin.css';
+import {
+    Button, ButtonGroup,
+    FormControl,
+    FormControlLabel, Grid,
+    Input,
+    InputLabel,
+    MenuItem,
+    Radio,
+    RadioGroup,
+    Select
+} from "@mui/material";
 
-export const Admin = ({editUser, id}) => {
+export const Admin = () => {
     const genders = ['male', 'female'];
     const roles = ['developer', 'project-manager', 'administration', 'other'];
     const userAgeDefaultValue = 18;
@@ -31,34 +42,97 @@ export const Admin = ({editUser, id}) => {
     }
 
     return (
-        <div className='admin'>
-            <h1>Create user</h1>
-            username<input placeholder='user' type='text' value={userName} onChange={(event) => setUserName(event.target.value)}/>
-            age<input placeholder='18' type='number' value={userAge} onChange={(event) => setUserAge(Number(event.target.value))}/>
-            <select onChange={(event) => setUserRole(event.target.value)}>
-                {roles.map(role => {
-                    return (
-                        <option key={role} value={role}>{role}</option>
-                    )
-                })}
-            </select>
-            {genders.map(gender =>
-                <label key={gender}>
-                    <input
-                        value={gender}
-                        onChange={(event) => setUserGender(event.target.value)}
-                        checked={gender === userGender}
-                        type="radio"/>
-                    {gender}
-                </label>
-            )}
-            <button disabled={userName === ''} type='button' onClick={() => {
-                void insertUserHandler();
-                editUser(id);
-            }}>submit</button>
-            <button type='button' onClick={() => {
-                editUser(id);
-            }}>cancel</button>
-        </div>
+        <Grid
+            container
+            className='admin'
+            spacing={0}
+            justifyContent='space-evenly'
+        >
+           <Grid item xs={12}>
+               <h1>Create user</h1>
+           </Grid>
+            <Grid
+                item
+                xs={12}
+            >
+                <InputLabel>name
+                    <Input
+                        className='admin__input'
+                        placeholder='user'
+                        type='text'
+                        value={userName}
+                        onChange={(event) => setUserName(event.target.value)}/>
+                </InputLabel>
+            </Grid>
+            <Grid
+                item
+                xs={12}
+            >
+                <InputLabel>age
+                    <Input
+                        className='admin__input'
+                        placeholder='18'
+                        type='number'
+                        value={userAge}
+                        onChange={(event) => setUserAge(Number(event.target.value))}/>
+                </InputLabel>
+            </Grid>
+            <Grid
+                item
+                xs={12}
+            >
+                <FormControl>
+                    <InputLabel>Role</InputLabel>
+                    <Select
+                        onChange={(event) => setUserRole(event.target.value)}
+                        className='admin__select'
+                    >
+                        {roles.map(role => {
+                            return (
+                                <MenuItem key={role} value={role}>{role}</MenuItem>
+                            )
+                        })}
+                    </Select>
+                </FormControl>
+            </Grid>
+            <Grid
+                item
+                xs={12}
+            >
+                <RadioGroup>
+                    {genders.map(gender =>
+                        <FormControlLabel
+                            key={gender}
+                            control={<Radio
+                                value={gender}
+                                onChange={(event) => setUserGender(event.target.value)}
+                                checked={gender === userGender}
+                                type="radio"/>
+                            }
+                            label={gender}>{gender}
+                        </FormControlLabel>
+                    )}
+                </RadioGroup>
+            </Grid>
+            <Grid
+                item
+                xs={12}
+            >
+                <ButtonGroup>
+                    <Button
+                        variant='userEdit'
+                        disabled={userName === ''}
+                        type='button'
+                        onClick={() => {
+                            void insertUserHandler();
+                        }}>submit</Button>
+                    <Button
+                        variant='userEdit'
+                        type='button'
+                        onClick={() => {
+                        }}>cancel</Button>
+                </ButtonGroup>
+            </Grid>
+        </Grid>
     )
 }

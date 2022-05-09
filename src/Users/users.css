@@ -11,7 +11,8 @@
 
 .users__header {
     display: grid;
-    text-align: right;
+    text-align: center;
+    margin: 0;
 }
 
 .user {

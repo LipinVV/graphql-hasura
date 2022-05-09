@@ -6,7 +6,7 @@ import {palette} from "../theme/theme";
 
 export const options = {
     title: "Users in our team",
-    backgroundColor: palette.one
+    backgroundColor: palette.chartBG,
 };
 
 
