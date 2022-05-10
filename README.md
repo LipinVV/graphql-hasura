@@ -1,3 +1,5 @@
+## Admin panel, builded on ReactJS / GraphQL / Appolo / Hasura / CSS + MUI
+
 ## Available Scripts
 
 In the project directory, you can run:
