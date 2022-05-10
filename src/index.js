@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
 import {setContext} from "@apollo/client/link/context";
 import {BrowserRouter} from "react-router-dom";
 import {
@@ -8,7 +7,7 @@ import {
     InMemoryCache,
     ApolloProvider, createHttpLink,
 } from "@apollo/client";
-
+import App from './App';
 import './index.css';
 
 const httpLink = createHttpLink({

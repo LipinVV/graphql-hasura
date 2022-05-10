@@ -94,9 +94,6 @@ const filter_button_clear = {
     }
 }
 
-// f               // sx={{backgroundColor: '#ee6c4d', textTransform: 'capitalize', height: '50px', '&:hover' : {backgroundColor: 'red'}}}
-
-
 export const theme = createTheme({
     components: {
         MuiButton: {

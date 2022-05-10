@@ -1,0 +1,10 @@
+.loadingScreen {
+    width: 100%;
+    color: white;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.loadingScreen__header {
+    font-size: 40px;
+}

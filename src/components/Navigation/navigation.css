@@ -1,5 +1,6 @@
 .navigation {
     display: grid;
+    grid-gap: 60px;
 }
 
 .navigation__bar {
@@ -19,10 +20,14 @@
     color: white;
     justify-self: center;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 25px;
     padding: 20px;
     width: 100%;
     text-align: center;
+}
+
+.navigation__link:active {
+    background-color: #06d6a0;
 }
 
 .navigation__link:hover {

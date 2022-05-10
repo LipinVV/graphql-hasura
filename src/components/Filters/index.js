@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import './filters.css';
 import {
     Button,
     FormControl,
@@ -13,6 +12,7 @@ import {
 } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
+import './filters.css';
 
 export const Filters = ({searchUserHandler, options, setFilter, filter, data}) => {
 

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import './pagination.css';
 import {Button} from "@mui/material";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import {NavigateBefore} from "@mui/icons-material";
+import './pagination.css';
 
 export const Pagination = ({
                                filteredUsers,

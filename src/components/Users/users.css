@@ -13,6 +13,9 @@
     display: grid;
     text-align: center;
     margin: 0;
+    font-size: 35px;
+    color: #ffffff;
+    text-transform: uppercase;
 }
 
 .user {
@@ -37,7 +40,7 @@
 }
 
 .user__link:hover {
-    background-color: yellow;
+    background-color: #FFFF00FF;
 }
 
 .user__link .user__listItem:nth-of-type(1) {
@@ -63,7 +66,7 @@
 
 .user__button_confirm {
     justify-self: end;
-    background-color: lightgreen;
+    background-color: #90EE90FF;
 }
 
 .user__button_cancel {

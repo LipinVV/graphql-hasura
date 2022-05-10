@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useMutation} from "@apollo/client";
-import {GET_USERS_QUERY} from "../../graphql/queries";
-import {UPDATE_USER} from "../../graphql/mutations";
+import {GET_USERS_QUERY} from "../../../graphql/queries";
+import {UPDATE_USER} from "../../../graphql/mutations";
 import {
     Button,
     ButtonGroup,
@@ -14,7 +14,7 @@ import {
     Paper, Radio, RadioGroup,
     Select
 } from "@mui/material";
-import {RadioButton} from "../../components/tools/RadioButton";
+import {RadioButton} from "../../tools/RadioButton";
 import './userEditor.css';
 
 export const UserEditor = ({name, age, role, gender, options, editUser, id}) => {

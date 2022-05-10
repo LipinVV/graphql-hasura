@@ -1,0 +1,8 @@
+.charts {
+    display: grid;
+    grid-gap: 30px;
+}
+
+.charts__header {
+    text-align: center;
+}

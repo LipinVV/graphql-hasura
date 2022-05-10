@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import {useMutation} from "@apollo/client";
-import {INSERT_USER} from "../graphql/mutations";
-import {GET_USERS_QUERY} from "../graphql/queries";
-import './admin.css';
+import {INSERT_USER} from "../../graphql/mutations";
+import {GET_USERS_QUERY} from "../../graphql/queries";
 import {
     Button, ButtonGroup,
     FormControl,
@@ -14,6 +13,7 @@ import {
     RadioGroup,
     Select
 } from "@mui/material";
+import './admin.css';
 
 export const Admin = () => {
     const genders = ['male', 'female'];
@@ -48,7 +48,7 @@ export const Admin = () => {
             spacing={0}
             justifyContent='space-evenly'
         >
-           <Grid item xs={12}>
+           <Grid justifySelf={"center"} item>
                <h1>Create user</h1>
            </Grid>
             <Grid

@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from "react";
 import {useMutation, useQuery} from "@apollo/client";
 import {Link} from "react-router-dom";
-import {GET_USERS_QUERY} from "../graphql/queries";
-import {DELETE_USER} from "../graphql/mutations";
-import {UserEditor} from "./UserEditor";
-import {Pagination} from "../components/pagination/Pagination";
-import {Filters} from "../Filters";
+import {GET_USERS_QUERY} from "../../graphql/queries";
+import {DELETE_USER} from "../../graphql/mutations";
 import {Button, ButtonGroup, Card, Grid, List, ListItem} from "@mui/material";
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
-
+import {UserEditor} from "./UserEditor";
+import {Pagination} from "../pagination/Pagination";
+import {Filters} from "../Filters";
+import {LoadingScreen} from "../LoadingScreen";
+import {ErrorScreen} from "../ErrorScreen";
 import './users.css';
 
 export const Users = () => {
@@ -105,8 +106,8 @@ export const Users = () => {
         setFilteredUsers(getFilteredUsers(users, filter));
     }, [filter, users])
 
-    if (error) return <div>Something went wrong</div>
-    if (loading) return <div>Loading users...</div>
+    if (error) return <ErrorScreen />
+    if (loading) return <LoadingScreen entity={'users'} />
 
     return (
         <div className='users'>

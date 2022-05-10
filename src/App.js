@@ -1,13 +1,13 @@
 import React from 'react';
-import {Users} from "./Users";
+import {Users} from "./components/Users";
 import {Route, Routes} from "react-router";
-import {Navigation} from "./Navigation";
-import {User} from "./Users/User";
-import {Admin} from "./Admin";
+import {Navigation} from "./components/Navigation";
+import {User} from "./components/Users/User";
+import {Admin} from "./components/Admin";
 import {ThemeProvider} from "@mui/material";
+import {NoMatch} from "./components/NoMatch";
+import {Charts} from "./components/Charts";
 import {theme} from "./theme/theme";
-import {NoMatch} from "./NoMatch";
-import {Charts} from "./Charts";
 import './App.css';
 
 
