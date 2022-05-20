@@ -1,6 +1,6 @@
 import React from 'react';
 import {Users} from "./components/Users";
-import {Route, Routes} from "react-router";
+import {Route, Routes, useLocation} from "react-router";
 import {Navigation} from "./components/Navigation";
 import {User} from "./components/Users/User";
 import {Admin} from "./components/Admin";
@@ -9,9 +9,12 @@ import {NoMatch} from "./components/NoMatch";
 import {Charts} from "./components/Charts";
 import {theme} from "./theme/theme";
 import './App.css';
+import {WelcomeBlock} from "./components/WelcomeBlock";
 
 
 function App() {
+    const path = useLocation();
+
     return (
         <ThemeProvider theme={theme}>
             <div className="App">
@@ -24,6 +27,7 @@ function App() {
                     </Route>
                     <Route path="*" element={<NoMatch />} />
                 </Routes>
+                {path.pathname === '/' && <WelcomeBlock/>}
             </div>
         </ThemeProvider>
     );

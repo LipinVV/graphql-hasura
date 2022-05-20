@@ -1,0 +1,31 @@
+.welcome-block {
+    display: flex;
+    font-size: 40px;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+
+.welcome-block__header {
+    text-align: center;
+    color: #FFD700;
+}
+
+.welcome-block__typing {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 30%;
+}
+
+.welcome-block__typing_static {
+    color: white;
+}
+
+.welcome-block__typing_dynamic {
+    color: white;
+}
